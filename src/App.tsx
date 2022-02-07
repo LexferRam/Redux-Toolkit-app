@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.css";
 import { RootState } from "./app/store";
 import CustomerCard from "./components/CustomerCard";
 import ReservationCard from "./components/ReservationCard";
 import { addReservation } from "./features/reservationSlice";
+import { getTodos } from "./features/customerSlice";
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
 
   const reservations = useSelector((state: RootState) => state.reservations.value)
   const customers = useSelector((state: RootState) => state.customer.value)
+  const todos = useSelector((state: RootState) => state.customer.todos)
 
 
   const handleAddReservations = () => {
@@ -21,6 +23,14 @@ function App() {
     dispatch(addReservation(reservationNameInput))
     setReservationNameInput("")
   }
+
+  useEffect(() => {
+    (async function():Promise<void>{
+      const res = await fetch("https://jsonplaceholder.typicode.com/todos")
+      const data = await res.json()
+      dispatch(getTodos(data))
+    })()
+  },[])
 
   return (
     <div className="App">
@@ -52,6 +62,11 @@ function App() {
           })}
         </div>
       </div>
+        <div>
+          {todos.map((todo,i)=> (
+            <h3 key={i}>{todo.title}</h3>
+          ))}
+        </div>
     </div>
   );
 }

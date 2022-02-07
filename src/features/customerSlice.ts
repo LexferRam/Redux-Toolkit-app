@@ -11,12 +11,21 @@ interface AddFoodToCustomerPayload{
     id: string;
 }
 
+interface Todo{
+  id?: number,
+  title?:string,
+  useId?:number,
+  completed?: boolean
+}
+
 interface CustomerState{
-    value: Customer[]
+    value: Customer[],
+    todos: Todo[]
 }
 
 const initialState: CustomerState = {
-    value: []
+    value: [],
+    todos: []
   };
 
 export const customerSlice = createSlice({
@@ -32,8 +41,11 @@ export const customerSlice = createSlice({
                 customer.food.push(action.payload.food)
             }
         })
+      },
+      getTodos: (state,action:PayloadAction<Todo[]>) => {
+        state.todos=action.payload;
       }
     }})
 
-export const {addCustomer,addFoodToCustomer} = customerSlice.actions;
+export const {addCustomer,addFoodToCustomer,getTodos} = customerSlice.actions;
 export default customerSlice.reducer;
