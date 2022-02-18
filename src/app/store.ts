@@ -1,4 +1,5 @@
 import {configureStore} from "@reduxjs/toolkit"
+import logger from 'redux-logger'
 import reservationsReducer from "../features/reservationSlice"
 import customerReducer from "../features/customerSlice"
 
@@ -7,6 +8,7 @@ export const store = configureStore({
         reservations: reservationsReducer,
         customer: customerReducer,
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
     devTools: process.env.NODE_ENV !== 'production',
 })
 
