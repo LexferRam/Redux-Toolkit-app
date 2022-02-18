@@ -6,7 +6,8 @@ export const store = configureStore({
     reducer:{
         reservations: reservationsReducer,
         customer: customerReducer,
-    }
+    },
+    devTools: process.env.NODE_ENV !== 'production',
 })
 
 export type RootState = ReturnType<typeof store.getState>
