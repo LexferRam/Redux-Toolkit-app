@@ -30,7 +30,7 @@ function App() {
       const data = await res.json()
       dispatch(getTodos(data))
     })()
-  },[])
+  },[dispatch])
 
   return (
     <div className="App">
@@ -40,7 +40,7 @@ function App() {
             <h5 className="reservation-header">Reservations</h5>
             <div className="reservation-cards-container">
               {reservations.map((name, i) => (
-                <ReservationCard name={name} index={i} />
+                <ReservationCard name={name} index={i} key={i}/>
               ))}
             </div>
           </div>

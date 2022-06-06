@@ -18,8 +18,8 @@ const CustomerCard = ({ id, name, food }: CustomerCardType) => {
             <p>{name}</p>
             <div className="customer-foods-container">
                 <div className="customer-food">
-                    {food.map(food => (
-                        <p>{food}</p>
+                    {food.map((food,i) => (
+                        <p key={i}>{food}</p>
                     ))}
                 </div>
                 <div className="customer-food-input-container">
